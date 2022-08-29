@@ -1,16 +1,34 @@
+import React from 'react'
 import { useEffect, useState } from 'react'
 import './App.css'
 import Die from './Die'
 import {nanoid} from "nanoid"
 import Confetti from "react-confetti"
 
+
 function App() {
 
   const [dice,setDice] = useState(allNewDice()) 
   const [tenzies, setTenzies] = useState(false)
+  const [dimensions, setDimensions] = React.useState({ 
+    height: window.innerHeight,
+    width: window.innerWidth
+  })
+
+ 
+  useEffect(() => {
+    console.log(dimensions)
+    function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+    
+  }
+    window.addEventListener('resize', handleResize)
+  })
 
   useEffect(() =>{
-    console.log(tenzies)
     const heldDice = dice.filter(die => die.isHeld)
     const value = dice[0].value
     const sameValDice = heldDice.filter(die => (die.value === value))
@@ -65,20 +83,25 @@ function App() {
 }
 
 
+
+  // const width = window.innerWidth
+  // const height = window.innerHeight
  
   return (
+  
    
-      <main>
-        {tenzies && <Confetti/>}
-        <h1 className="title">Tenzies</h1>
-        <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
-        <div className="die-container">
-          {diceElements}
-        </div>
-        <button
-         className='roll-dice' onClick={rollDice}>{tenzies?"New Game":"Roll"}
-        </button>
-      </main>
+        <main>
+        {tenzies &&  <Confetti width={dimensions.wid} height={dimensions.height} />}
+          <h1 className="title">Tenzies</h1>
+          <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+          <div className="die-container">
+            {diceElements}
+          </div>
+          <button
+           className='roll-dice' onClick={rollDice}>{tenzies?"New Game":"Roll"}
+          </button>
+        </main>
+
   
   )
 }

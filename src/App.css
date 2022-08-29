@@ -7,11 +7,13 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow:hidden;
 }
+
 
 main {
   background-color: #F5F5F5;
-  height:360px;
+  height:340px;
   width: 340px;
   border-radius: 5px;
   padding: 40px;
