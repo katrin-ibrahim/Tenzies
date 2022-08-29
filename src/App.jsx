@@ -15,18 +15,27 @@ function App() {
     width: window.innerWidth
   })
 
- 
-  useEffect(() => {
-    console.log(dimensions)
-    function handleResize() {
+  //this was slower
+  // useEffect(() => {
+  //   console.log(dimensions)
+  //   function handleResize() {
+  //     setDimensions({
+  //       height: window.innerHeight,
+  //       width: window.innerWidth
+  //     })
+    
+  // }
+  //   window.addEventListener('resize', handleResize)
+  // })
+
+  React.useEffect(() => {
+    window.addEventListener("resize", function() {
       setDimensions({
         height: window.innerHeight,
         width: window.innerWidth
       })
-    
-  }
-    window.addEventListener('resize', handleResize)
-  })
+    })
+}, [])
 
   useEffect(() =>{
     const heldDice = dice.filter(die => die.isHeld)
@@ -84,14 +93,12 @@ function App() {
 
 
 
-  // const width = window.innerWidth
-  // const height = window.innerHeight
  
   return (
   
    
         <main>
-        {tenzies &&  <Confetti width={dimensions.wid} height={dimensions.height} />}
+        {tenzies &&  <Confetti width={dimensions.width} height={dimensions.height} />}
           <h1 className="title">Tenzies</h1>
           <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
           <div className="die-container">
